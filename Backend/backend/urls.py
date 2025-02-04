@@ -15,8 +15,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
-urlpatterns = [
+from suggest.suggest_product.viewset import RecipeSuggestViewSet
+from suggest.suggest_profit_product.viewset import RecipeSuggestProfitViewSet
+
+
+""" urlpatterns = [
     path('admin/', admin.site.urls),
+] """
+
+router = DefaultRouter()
+router.register(r'recetas', RecipeSuggestViewSet, basename='recetas')
+router.register(r'recetas/profit', RecipeSuggestProfitViewSet, basename='recetas-profit')
+
+# Incluir las rutas de la API
+urlpatterns = [
+    path('api/', include(router.urls)),
 ]
