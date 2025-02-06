@@ -1,101 +1,107 @@
-import Image from "next/image";
+"use client"
+import { useState } from 'react';
+import Image from 'next/image';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  // Datos quemados de recetas
+  const recetas = [
+    {
+      name: 'Pastel de vainilla',
+      ingredients: [
+        { desc: 'harina', quantity: 200, unit: 'g' },
+        { desc: 'azúcar', quantity: 100, unit: 'g' },
+        { desc: 'huevo', quantity: 2, unit: 'unit' },
+        { desc: 'leche', quantity: 1, unit: 'L' },
+        { desc: 'manteca', quantity: 50, unit: 'g' },
+      ],
+      pvp: 35.5,
+      image: '/vainilla.jpg', // Ruta de la imagen en la carpeta public
+    },
+    {
+      name: 'Pastel de chocolate',
+      ingredients: [
+        { desc: 'harina', quantity: 150, unit: 'g' },
+        { desc: 'azúcar', quantity: 120, unit: 'g' },
+        { desc: 'huevo', quantity: 3, unit: 'unit' },
+        { desc: 'leche', quantity: 0.5, unit: 'L' },
+        { desc: 'cacao', quantity: 80, unit: 'g' },
+      ],
+      pvp: 40.0,
+      image: '/chocolate.jpg', // Ruta de la imagen en la carpeta public
+    },
+    {
+      name: 'Pastel de fresa',
+      ingredients: [
+        { desc: 'harina', quantity: 180, unit: 'g' },
+        { desc: 'azúcar', quantity: 90, unit: 'g' },
+        { desc: 'huevo', quantity: 2, unit: 'unit' },
+        { desc: 'leche', quantity: 0.8, unit: 'L' },
+        { desc: 'fresas', quantity: 200, unit: 'g' },
+      ],
+      pvp: 38.0,
+      image: '/fresa.jpg', // Ruta de la imagen en la carpeta public
+    },
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  // Estado para el filtro de búsqueda
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Filtrar recetas por nombre
+  const filteredRecetas = recetas.filter((receta) =>
+    receta.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <div className="min-h-screen bg-yellow-50 p-8">
+      <h1 className="text-5xl font-bold text-center text-blue-800 mb-8">🥣 Recetas Disponibles</h1>
+
+      {/* Filtro de búsqueda */}
+      <div className="mb-8">
+        <input
+          type="text"
+          placeholder="🔎Buscar receta por nombre..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Lista de recetas */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredRecetas.map((receta, index) => (
+          <div
+            key={index}
+            className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+            {/* Imagen de la receta */}
+            <div className="relative h-48 mb-4">
+              <Image
+                src={receta.image}
+                alt={receta.name}
+                layout="fill"
+                objectFit="cover"
+                className="rounded-lg"
+              />
+            </div>
+
+            {/* Nombre y PVP */}
+            <h2 className="text-2xl font-semibold text-gray-800 mb-2">{receta.name}</h2>
+            <p className="text-lg text-gray-700 mb-4">
+              <span className="font-medium">PVP:</span> ${receta.pvp}
+            </p>
+
+            {/* Lista de ingredientes */}
+            <h3 className="text-xl font-medium text-gray-700 mb-2">Ingredientes:</h3>
+            <ul className="list-disc list-inside">
+              {receta.ingredients.map((ingrediente, i) => (
+                <li key={i} className="text-gray-600">
+                  {ingrediente.desc}: {ingrediente.quantity} {ingrediente.unit}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
