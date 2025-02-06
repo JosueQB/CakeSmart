@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
+from ingredients.viewset import IngredientsViewSet
+from product.viewset import ProductIngredientsViewSet, ProductViewSet
 from suggest.suggest_product.viewset import RecipeSuggestViewSet
 from suggest.suggest_profit_product.viewset import RecipeSuggestProfitViewSet
 
@@ -29,6 +31,9 @@ from suggest.suggest_profit_product.viewset import RecipeSuggestProfitViewSet
 router = DefaultRouter()
 router.register(r'recetas', RecipeSuggestViewSet, basename='recetas')
 router.register(r'recetas/profit', RecipeSuggestProfitViewSet, basename='recetas-profit')
+router.register(r'product', ProductViewSet, basename='product')
+router.register(r'product-ingredients', ProductIngredientsViewSet, basename='product-ingredients')
+router.register(r'ingredients', IngredientsViewSet, basename='ingredients')
 
 # Incluir las rutas de la API
 urlpatterns = [
