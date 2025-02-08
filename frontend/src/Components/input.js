@@ -1,9 +1,12 @@
-export const Input = ({ type, className }) => {
-    return (
-      <input
-        type={type}
-
-        className="border rounded-lg px-2 py-1 focus:outline-blue-500 "
-      />
-    );
-  };
+export const Input = ({ type, value, onChange, readOnly, className, ...props }) => {
+  return (
+    <input
+      type={type}
+      value={value}
+      onChange={onChange}
+      readOnly={readOnly}
+      className={`px-2 py-1 border rounded ${className}`}
+      {...props}
+    />
+  );
+};

@@ -1,11 +1,11 @@
-export const Card = ({ children, className }) => {
+export const Card = ({ children  }) => {
     return (
-      <div className="bg-white shadow rounded-lg p-4">
+      <div className="bg-white shadow rounded-xl p-2">
         {children}
       </div>
     );
   };
   
-  export const CardContent = ({ children, className }) => {
+  export const CardContent = ({ children  }) => {
     return <div className="flex flex-col ">{children}</div>;
   };

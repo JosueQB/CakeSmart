@@ -27,7 +27,9 @@ export default function Navbar() {
           {isClient && session?.user ? (
             <div className="flex gap-x-4 items-center">
               <Link href="/inicio" className="text-white  px-3 py-2 rounded hover:bg-indigo-700 ">Principal</Link>
-              <Link href="/inventario" className="text-white  px-3 py-2 rounded hover:bg-indigo-700 ">Inventario</Link>
+              <Link href="/recipe" className="text-white  px-3 py-2 rounded hover:bg-indigo-700 ">Receta</Link>
+              <Link href="/recipe/suggets" className="text-white  px-3 py-2 rounded hover:bg-indigo-700 ">Ver Receta</Link>
+              <Link href="/ingredients" className="text-white  px-3 py-2 rounded hover:bg-indigo-700 ">ingredientes</Link>
               <p className="text-white">{session.user.name} </p>
               {session.user.image && (
                 <img
